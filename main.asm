@@ -59,6 +59,7 @@ START:
 	MOV 4BH, #'1'	  
 
 MAIN:
+	CLR A
 	ACALL lcd_init
 	MOV A, #03H
     ACALL posicionaCursor
@@ -90,7 +91,7 @@ ROTINA:
 	
 	ACALL leituraTeclado
 	JNB F0, ROTINA   ;if F0 is clear, jump to ROTINA
-	ACALL handlePedido
+	ACALL verificaPedido
 	MOV A, #07h
 	ACALL posicionaCursor	
 	MOV A, #40h
@@ -370,7 +371,7 @@ DB 0 ; Caracter null indica fim da String
 ; Função para comparar o pedido digitado com o que está escrito no LCD
 ; Função para lidar com o pedido com base no número digitado
 
-handlePedido:
+verificaPedido:
     MOV A, R0 ; Move o número do pedido para o acumulador para verificar qual foi pressionado
     ACALL clearDisplay ; Limpa o LCD
     ACALL posicionaCursor ; Posiciona o cursor no LCD
@@ -380,22 +381,26 @@ handlePedido:
     ACALL clearDisplay ; limpa o display
 	ACALL posicionaCursor ; Posiciona o cursor no LCD 	
     MOV DPTR, #MensagemCafePreto ; Carrega o endereço da mensagem "cafe preto pronto" no DPTR
+	ACALL escreveString ; Escreve a mensagem "cafe preto pronto" no LCD
     ACALL esperar_10_segundos ; Aguarda 10 segundos
     ACALL clearDisplay ; Limpa o LCD
-    ACALL escreveString ; Escreve a mensagem "cafe preto pronto" no LCD
-    SJMP fim_handlePedido ; Pula para o final da função
+    SJMP fim_verificaPedido ; Pula para o final da função
+	
 
-fim_handlePedido:
+fim_verificaPedido:
+    ACALL esperar_10_segundos
+    ACALL main
     RET ; Retorna ao ponto de chamada
 
 MensagemPedido1:
-DB "Preparando..."
+DB "     Preparando..."
 DB 0 ; Caractere nulo indicando o fim da string
 
 MensagemCafePreto:
-DB "Ped 1 pronto!"
+DB "      N°1 Pronto!"
 DB 0 ; Caractere nulo indicando o fim da string
-
+	
+	
 escreveString:
 MOV R2, #0
 rot:
