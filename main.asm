@@ -1,4 +1,4 @@
-;DefiniÃ§Ã£o de constantes
+;Definição de constantes
 DELAY_COUNT equ 50   ; Valor para o atraso
 TIMEOUT_COUNT equ 200  ; Contagem para 10 segundos (200 * 50ms)
 
@@ -63,17 +63,17 @@ MAIN:
 	ACALL lcd_init
 	MOV A, #03H
     ACALL posicionaCursor
-    MOV DPTR,#MSG     ; DPTR = inÃ­cio da palavra FEI
+    MOV DPTR,#MSG     ; DPTR = início da palavra FEI
     ACALL escreveString
     MOV A, #43H
     ACALL posicionaCursor
-    MOV DPTR,#Display ; DPTR = inÃ­cio da palavra Display
+    MOV DPTR,#Display ; DPTR = início da palavra Display
     ACALL escreveString
     ACALL esperar_10_segundos     
     ACALL clearDisplay
 	MOV A, #03H
     ACALL posicionaCursor
-    MOV DPTR, #OpcoesCafe1 ; DPTR = inÃ­cio das opÃ§Ãµes de cafÃ©
+    MOV DPTR, #OpcoesCafe1 ; DPTR = início das opções de café
 	ACALL escreveString
  	ACALL esperar_10_segundos     
 	ACALL posicionaCursor
@@ -100,7 +100,7 @@ ROTINA:
 	MOV A, @R0        
 	ACALL sendCharacter
 	CLR F0
-	JMP $
+	JMP main
 
 
 
@@ -368,28 +368,27 @@ OpcoesCafe3:
 DB "3.Cafe expresso"
 DB 0 ; Caracter null indica fim da String
 
-; Função para comparar o pedido digitado com o que está escrito no LCD
-; Função para lidar com o pedido com base no número digitado
+; Fun��o para comparar o pedido digitado com o que est� escrito no LCD
+; Fun��o para lidar com o pedido com base no n�mero digitado
 
 verificaPedido:
-    MOV A, R0 ; Move o número do pedido para o acumulador para verificar qual foi pressionado
+    MOV A, R0 ; Move o n�mero do pedido para o acumulador para verificar qual foi pressionado
     ACALL clearDisplay ; Limpa o LCD
     ACALL posicionaCursor ; Posiciona o cursor no LCD
-    MOV DPTR, #MensagemPedido1 ; Carrega o endereço da mensagem "preparando pedido 1" no DPTR
+    MOV DPTR, #MensagemPedido1 ; Carrega o endere�o da mensagem "preparando pedido 1" no DPTR
     ACALL escreveString ; Escreve a mensagem "preparando pedido 1" no LCD
 	 ACALL esperar_10_segundos ; Aguarda 10 segundos
     ACALL clearDisplay ; limpa o display
 	ACALL posicionaCursor ; Posiciona o cursor no LCD 	
-    MOV DPTR, #MensagemCafePreto ; Carrega o endereço da mensagem "cafe preto pronto" no DPTR
+    MOV DPTR, #MensagemCafePreto ; Carrega o endere�o da mensagem "cafe preto pronto" no DPTR
 	ACALL escreveString ; Escreve a mensagem "cafe preto pronto" no LCD
     ACALL esperar_10_segundos ; Aguarda 10 segundos
     ACALL clearDisplay ; Limpa o LCD
-    SJMP fim_verificaPedido ; Pula para o final da função
+    SJMP fim_verificaPedido ; Pula para o final da fun��o
 	
 
 fim_verificaPedido:
     ACALL esperar_10_segundos
-    ACALL main
     RET ; Retorna ao ponto de chamada
 
 MensagemPedido1:
@@ -397,7 +396,7 @@ DB "     Preparando..."
 DB 0 ; Caractere nulo indicando o fim da string
 
 MensagemCafePreto:
-DB "      N°1 Pronto!"
+DB "      N�1 Pronto!"
 DB 0 ; Caractere nulo indicando o fim da string
 	
 	
@@ -405,7 +404,7 @@ escreveString:
 MOV R2, #0
 rot:
 MOV A, R2
-MOVC A,@A+DPTR ; lÃª a tabela da memÃ³ria de programa
+MOVC A,@A+DPTR ; lê a tabela da memória de programa
 ACALL sendCharacter ; send data in A to LCD module
 INC R2
 JNZ rot ; if A is 0, then end of data has been reached - jump out of loop
