@@ -70,7 +70,7 @@ MAIN:
     ACALL escreveString
     ACALL esperar_10_segundos     
     ACALL clearDisplay
-    MOV A, #03H
+	MOV A, #03H
     ACALL posicionaCursor
     MOV DPTR, #OpcoesCafe1 ; DPTR = inÃ­cio das opÃ§Ãµes de cafÃ©
 	ACALL escreveString
@@ -84,10 +84,13 @@ MAIN:
 	ACALL escreveString
 	ACALL esperar_10_segundos
 	ACALL clearDisplay	
+	ACALL esperar_10_segundos
+		
 ROTINA:
 	
 	ACALL leituraTeclado
 	JNB F0, ROTINA   ;if F0 is clear, jump to ROTINA
+	ACALL handlePedido
 	MOV A, #07h
 	ACALL posicionaCursor	
 	MOV A, #40h
@@ -96,7 +99,7 @@ ROTINA:
 	MOV A, @R0        
 	ACALL sendCharacter
 	CLR F0
-	JMP ROTINA
+	JMP $
 
 
 
@@ -353,7 +356,7 @@ DB "BEM-VINDO"
 DB 0 ; caracter null indica fim da String
 
 OpcoesCafe1:
-DB "1.Cafe preto    "
+DB "      1.Cafe preto"
 DB 0; caracter null indica fim da String
 
 OpcoesCafe2:
@@ -364,7 +367,34 @@ OpcoesCafe3:
 DB "3.Cafe expresso"
 DB 0 ; Caracter null indica fim da String
 
+; Função para comparar o pedido digitado com o que está escrito no LCD
+; Função para lidar com o pedido com base no número digitado
 
+handlePedido:
+    MOV A, R0 ; Move o número do pedido para o acumulador para verificar qual foi pressionado
+    ACALL clearDisplay ; Limpa o LCD
+    ACALL posicionaCursor ; Posiciona o cursor no LCD
+    MOV DPTR, #MensagemPedido1 ; Carrega o endereço da mensagem "preparando pedido 1" no DPTR
+    ACALL escreveString ; Escreve a mensagem "preparando pedido 1" no LCD
+	 ACALL esperar_10_segundos ; Aguarda 10 segundos
+    ACALL clearDisplay ; limpa o display
+	ACALL posicionaCursor ; Posiciona o cursor no LCD 	
+    MOV DPTR, #MensagemCafePreto ; Carrega o endereço da mensagem "cafe preto pronto" no DPTR
+    ACALL esperar_10_segundos ; Aguarda 10 segundos
+    ACALL clearDisplay ; Limpa o LCD
+    ACALL escreveString ; Escreve a mensagem "cafe preto pronto" no LCD
+    SJMP fim_handlePedido ; Pula para o final da função
+
+fim_handlePedido:
+    RET ; Retorna ao ponto de chamada
+
+MensagemPedido1:
+DB "Preparando..."
+DB 0 ; Caractere nulo indicando o fim da string
+
+MensagemCafePreto:
+DB "Ped 1 pronto!"
+DB 0 ; Caractere nulo indicando o fim da string
 
 escreveString:
 MOV R2, #0
