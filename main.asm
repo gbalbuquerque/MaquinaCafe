@@ -77,7 +77,7 @@ MAIN:
 	;opcao1
 	MOV A, #03H
 	ACALL posicionaCursor
-	MOV DPTR, #OpcoesCafe1: ; DPTR = início das opções de café
+	MOV DPTR,#OpcoesCafe1 ; DPTR = início das opções de café
 	ACALL escreveString
 	ACALL esperar_10_segundos
 	ACALL clearDisplay
@@ -85,7 +85,7 @@ MAIN:
 	;opcao2
 	MOV A, #03H
 	ACALL posicionaCursor
-	MOV DPTR, #OpcoesCafe2: ; DPTR = início das opções de café
+	MOV DPTR, #OpcoesCafe2 ; DPTR = início das opções de café
 	ACALL escreveString
 	ACALL esperar_10_segundos
 	ACALL clearDisplay
@@ -135,14 +135,57 @@ ROTINA:
 	
 	ACALL leituraTeclado
 	JNB F0, ROTINA   ;if F0 is clear, jump to ROTINA
-	ACALL verificaPedido
 	MOV A, #07h
 	ACALL posicionaCursor	
 	MOV A, #40h
 	ADD A, R0
 	MOV R0, A
 	MOV A, @R0        
-	RET
+	CJNE A,#'1',naoCafe1
+	ACALL lcd_init
+	MOV A,#03H
+	ACALL posicionaCursor
+	MOV DPTR,#OP1
+	ACALL escreveString
+	MOV A,#43H
+	ACALL posicionaCursor
+	MOV DPTR,#CERTEZA
+	ACALL escreveString
+	CJNE A,#'#', naoCerteza
+	ACALL clearDisplay
+	
+	;Preparando
+	ACALL lcd_init
+	MOV A,#03H
+	ACALL posicionaCursor
+	MOV DPTR,#Preparando
+	ACALL escreveString
+	MOV A,#43H
+	ACALL posicionaCursor
+	MOV DPTR,#Aguarde
+	ACALL escreveString
+	ACALL clearDisplay
+
+	;Pedido pronto
+	ACALL lcd_init
+	MOV A,#03H
+	ACALL posicionaCursor 
+	MOV DPTR,#cafePreto
+	ACALL escreveString
+	MOV A,#43H
+	ACALL posicionaCursor
+	MOV DPRT,#Pronto
+	ACALL escreveString
+	ACALL clearDisplay
+
+	;Volte sempre	
+	ACALL lcd_init
+	MOV A,#03H
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre
+	ACALL escreveString
+	ACALL clearDisplay
+	ACALL esperar_10_segundos
 
 
 
@@ -412,35 +455,116 @@ RET
 ;Strings do Menu
 
 OpcoesCafe1:
-DB "      1.Cafe preto"
+DB "     1.Cafe preto"
 DB 0; caracter null indica fim da String
 
 OpcoesCafe2:
-DB "2.Cafe com leite"
+DB "     2.Cafe com leite"
 DB 0; caracter null indica fim da String
 
 OpcoesCafe3:
-DB "3.Cafe expresso"
+DB "     3.Cafe expresso"
 DB 0 ; Caracter null indica fim da String
 
 OpcoesCafe4:
-DB "4.Cafe gelado"
+DB "      4.Cafe gelado"
 DB 0 ; Caracter null indica fim da String
 
 OpcoesCafe5:
-DB "5.Capuccino"
+DB "      5.Capuccino"
 DB 0 ; Caracter null indica fim da String
 
 OpcoesCafe6:
-DB "6.Latte"
+DB "      6.Latte"
 DB 0 ; Caracter null indica fim da String
 
-OpcoesCafe3:
-DB "7.Mocha"
+OpcoesCafe7:
+DB "      7.Mocha"
 DB 0 ; Caracter null indica fim da String
 
+;String das Opcoes escolhidas
+
+OP1:
+DB "      No1 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+OP2:
+DB "      No2 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+OP3:
+DB "      No3 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+OP4:
+DB "      No4 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+OP5:
+DB "      No5 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+OP6:
+DB "      No6 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+OP7:
+DB "      No7 Escolhido"
+DB 0	; Caracter null indica fim da String
+
+;Strings complementares
+
+CERTEZA:
+DB "      Confirmar #"
+DB 0 ; Caracter null indica fim da String
+
+;Funcao para quando nao tiver certeza retornar para o começo
+naoCerteza:
+ACALL clearDisplay
+SJMP START
+
+Preparando:
+DB "     Preparando..."
+DB 0 ; Caracter null indica fim da String
+
+Aguarde:
+DB "    Aguarde!"
+DB 0 ; Caracter null indica fim da String
+
+Pronto:
+DB "    Pronto!"
+DB 0 ; Caracter null indica fim da String
+
+volteSempre:
+DB "    Volte Sempre!"
 
 
+;Strings com nome dos pedidos
+cafePreto:
+DB "    Cafe Preto"
+DB 0 ; Caracter null indica fim da String
 
+cafeComLeite:
+DB "    Cafe com Leite"
+DB 0 ; Caracter null indica fim da String
 
+cafeExpresso:
+DB "    Cafe Expresso"
+DB 0 ; Caracter null indica fim da String
+
+cafeGelado:
+DB "    Cafe Gelado"
+DB 0 ; Caracter null indica fim da String
+
+cafeCapuccino
+DB "    Capuccino"
+DB 0 ; Caracter null indica fim da String
+
+latte:
+DB "    Latte"
+DB 0 ; Caracter null indica fim da String
+
+mocha:
+DB "    Mocha"
+DB 0 ; Caracter null indica fim da String
  
