@@ -62,30 +62,74 @@ MAIN:
 	CLR A
 	ACALL lcd_init
 	MOV A, #03H
-    ACALL posicionaCursor
-    MOV DPTR,#MSG     ; DPTR = início da palavra FEI
-    ACALL escreveString
-    MOV A, #43H
-    ACALL posicionaCursor
-    MOV DPTR,#Display ; DPTR = início da palavra Display
-    ACALL escreveString
-    ACALL esperar_10_segundos     
-    ACALL clearDisplay
-	MOV A, #03H
-    ACALL posicionaCursor
-    MOV DPTR, #OpcoesCafe1 ; DPTR = início das opções de café
-	ACALL escreveString
- 	ACALL esperar_10_segundos     
 	ACALL posicionaCursor
-	MOV DPTR, #OpcoesCafe2
+	MOV DPTR,#MSG     ; DPTR = início da palavra FEI
+	ACALL escreveString
+	MOV A, #43H
+	ACALL posicionaCursor
+	MOV DPTR,#Display ; DPTR = início da palavra Display
 	ACALL escreveString
 	ACALL esperar_10_segundos     
+	ACALL clearDisplay
+	;opcoes
+	ACALL lcd_init
+	
+	;opcao1
+	MOV A, #03H
 	ACALL posicionaCursor
-	MOV DPTR, #OpcoesCafe3
+	MOV DPTR, #OpcoesCafe1: ; DPTR = início das opções de café
 	ACALL escreveString
 	ACALL esperar_10_segundos
-	ACALL clearDisplay	
+	ACALL clearDisplay
+		
+	;opcao2
+	MOV A, #03H
+	ACALL posicionaCursor
+	MOV DPTR, #OpcoesCafe2: ; DPTR = início das opções de café
+	ACALL escreveString
 	ACALL esperar_10_segundos
+	ACALL clearDisplay
+	
+	;opcao3
+	MOV A, #03H
+	ACALL posicionaCursor
+	MOV DPTR, #OpcoesCafe3 ; DPTR = início das opções de café
+	ACALL escreveString
+	ACALL esperar_10_segundos
+	ACALL clearDisplay
+		
+	;opcao4
+	MOV A, #03H
+	ACALL posicionaCursor
+	MOV DPTR, #OpcoesCafe4 ; DPTR = início das opções de café
+	ACALL escreveString
+	ACALL esperar_10_segundos
+	ACALL clearDisplay
+
+	;opcao5
+	MOV A, #03H
+	ACALL posicionaCursor
+	MOV DPTR, #OpcoesCafe5 ; DPTR = início das opções de café
+	ACALL escreveString
+	ACALL esperar_10_segundos
+	ACALL clearDisplay
+	
+	;opcao6
+	MOV A, #03H
+	ACALL posicionaCursor
+	MOV DPTR, #OpcoesCafe6 ; DPTR = início das opções de café
+	ACALL escreveString
+	ACALL esperar_10_segundos
+	ACALL clearDisplay
+	
+	;opcao7
+	MOV A, #03H
+	ACALL posicionaCursor
+	MOV DPTR, #OpcoesCafe7 ; DPTR = início das opções de café
+	ACALL escreveString
+	ACALL esperar_10_segundos
+	ACALL clearDisplay
+	
 		
 ROTINA:
 	
@@ -98,9 +142,7 @@ ROTINA:
 	ADD A, R0
 	MOV R0, A
 	MOV A, @R0        
-	ACALL sendCharacter
-	CLR F0
-	JMP main
+	RET
 
 
 
@@ -356,6 +398,19 @@ Display:
 DB "BEM-VINDO"
 DB 0 ; caracter null indica fim da String
 
+	
+escreveString:
+MOV R2, #0
+rot:
+MOV A, R2
+MOVC A,@A+DPTR ; lê a tabela da memória de programa
+ACALL sendCharacter ; send data in A to LCD module
+INC R2
+JNZ rot ; if A is 0, then end of data has been reached - jump out of loop
+RET
+
+;Strings do Menu
+
 OpcoesCafe1:
 DB "      1.Cafe preto"
 DB 0; caracter null indica fim da String
@@ -368,69 +423,24 @@ OpcoesCafe3:
 DB "3.Cafe expresso"
 DB 0 ; Caracter null indica fim da String
 
-; Funcao para comparar o pedido digitado com o que esta escrito no LCD
-; Funcao para lidar com o pedido com base no numero digitado
+OpcoesCafe4:
+DB "4.Cafe gelado"
+DB 0 ; Caracter null indica fim da String
 
-verificaPedido:
-    MOV A, R0 ; Move o número do pedido para o acumulador para verificar qual foi pressionado
-    ACALL clearDisplay ; Limpa o LCD
-    ACALL posicionaCursor ; Posiciona o cursor no LCD
-    
-    CJNE A, #'1', nao_CafePreto ; Verifica se o número pressionado é igual a 1
-    MOV DPTR, #MensagemCafePreto ; Carrega o endereço da mensagem "cafe preto pronto" no DPTR
-    SJMP escreveMensagem ; Pula para o código comum de exibição de mensagem
-    
-nao_CafePreto:
-    CJNE A, #'2', nao_CafeLeite ; Verifica se o número pressionado é igual a 2
-    MOV DPTR, #MensagemCafeLeite ; Carrega o endereço da mensagem "cafe com leite pronto" no DPTR
-    SJMP escreveMensagem ; Pula para o código comum de exibição de mensagem
-    
-nao_CafeLeite:
-    CJNE A, #'3', nao_CafeExpresso ; Verifica se o número pressionado é igual a 3
-    MOV DPTR, #MensagemCafeExpresso ; Carrega o endereço da mensagem "cafe expresso pronto" no DPTR
-    ; Não há necessidade de pular para a escrita da mensagem, pois já é o próximo passo
-    
-nao_CafeExpresso:
-    ; Se chegou aqui, o número pressionado não corresponde a nenhum dos pedidos conhecidos
-    MOV DPTR, #MensagemPedidoDesconhecido ; Carrega o endereço da mensagem "pedido desconhecido" no DPTR
+OpcoesCafe5:
+DB "5.Capuccino"
+DB 0 ; Caracter null indica fim da String
 
-escreveMensagem:
-    ACALL escreveString ; Escreve a mensagem no LCD
-    ACALL esperar_10_segundos ; Aguarda 10 segundos
-    ACALL clearDisplay ; Limpa o LCD
-    SJMP fim_verificaPedido ; Pula para o final da função
+OpcoesCafe6:
+DB "6.Latte"
+DB 0 ; Caracter null indica fim da String
+
+OpcoesCafe3:
+DB "7.Mocha"
+DB 0 ; Caracter null indica fim da String
 
 
-fim_verificaPedido:
-    ACALL esperar_10_segundos
-    RET ; Retorna ao ponto de chamada
 
-MensagemPedido1:
-DB "     Preparando..."
-DB 0 ; Caractere nulo indicando o fim da string
 
-MensagemCafePreto:
-DB "      No1 Pronto!"
-DB 0 ; Caractere nulo indicando o fim da string
 
-MensagemCafeLeite:
-DB "   No2 Pronto!"
-DB 0 ; Caractere nulo indicando o fim da string
-
-MensagemCafeExpresso:
-DB "   No3 Pronto!"
-DB 0 ; Caractere nulo indicando o fim da string
-
-MensagemPedidoDesconhecido:
-DB "Pedido Desconhecido"
-DB 0 ; Caractere nulo indicando o fim da string	  
-	
-escreveString:
-    MOV R2, #0
-rot:
-    MOV A, R2
-    MOVC A,@A+DPTR ; lê a tabela da memória de programa
-    ACALL sendCharacter ; send data in A to LCD module
-    INC R2
-    JNZ rot ; if A is 0, then end of data has been reached - jump out of loop
-    RET
+ 
