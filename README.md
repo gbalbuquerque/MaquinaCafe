@@ -56,6 +56,8 @@ Feito isso, basta apenas mudar a frequência de atualização para 1000 no canto
 ![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/9dbd0881-c3b6-4987-9d15-ae37e9f3e6ee)
 
 
+## Código do programa comentadado
+
 
 
 
