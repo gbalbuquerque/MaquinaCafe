@@ -58,6 +58,86 @@ Feito isso, basta apenas mudar a frequência de atualização para 1000 no canto
 
 ## Código do programa comentadado
 
+### Start:
+
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/55ef6a2e-69a9-4de9-9119-9995a1eb6d3a)
+
+### Main:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/69df6c9f-b60f-46d7-af15-6899fa95e0df)
+
+<br>
+
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/1b71acec-c1dc-41e2-9032-dbe6a11ab70b)
+
+### Rotina:
+
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/c4821e50-3dea-4178-b28f-0e6261f7e520)
+
+### naoCafe1:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/e64cc62d-3f7b-443f-9a05-4b67c9931f13)
+
+
+### naoCafe2:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/89707c86-7948-44e4-9b03-7d1a333b0c29)
+
+
+### naoCafe3:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/b0aa39ca-f789-4537-a83c-880ad9847645)
+
+
+### naoCafe4:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/35895bcf-1206-4296-83ff-a9b40df4b0e0)
+
+
+### naoCafe5:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/3cfd6ba0-3c7b-4620-90aa-b520e36e1ef0)
+
+
+### naoCafe6:
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/8f3e3902-5214-4c6c-a623-a00804291e4b)
+
+
+### leituraTeclado
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/70aaf926-c610-43fb-ab1f-18dca5f7d331)
+
+### desconhecido
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/ea3ac88e-09e5-47b0-9a8a-a1126b89eb41)
+
+### finish, colScan, gotKey
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/c80448d9-5e6f-48b6-8e15-dbcfb55178de)
+
+### lcd_init
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/d7540989-696c-4add-90e6-947c440384bb)
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/6bda5a42-88e2-4b88-91fb-ad95b5b23d99)
+
+
+### sendCharacter
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/6544440f-5d29-45bf-9d14-0264fd3031a6)
+
+### posicionaCursor
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/e52265bf-dab1-4bb0-8b90-b5ffdf105c6f)
+
+### retornaCursor
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/cd041c56-2cff-458b-b5ac-4c344c4e5d90)
+
+### clearDisplay e delay
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/b0521147-0b33-4f8d-af09-936c2241bf22)
+
+### O restante do código tratam-se apenas de Strings
+
+## Considerações finais
+
+Ao concluirmos este projeto de desenvolvimento de uma cafeteira em Assembly, é gratificante olhar para trás e contemplar todo o progresso alcançado. Desde a concepção inicial até a implementação final, cada linha de código representou um desafio superado e uma oportunidade de aprendizado.
+
+Durante este percurso, mergulhei profundamente no mundo da programação de baixo nível, explorando os intricados detalhes da linguagem Assembly. Cada instrução, cada registro e cada fluxo de controle foram cuidadosamente planejados e executados para criar uma cafeteira funcional e eficiente.
+
+À medida que nos despedimos deste projeto, é importante expressar nossa gratidão àqueles que nos apoiaram ao longo do caminho. Em especial, gostaria de estender nossos sinceros agradecimentos ao Professor Isaac por nos desafiar a explorar novos horizontes e por nos orientar com sabedoria durante todo o processo.
+
+Seu incentivo e orientação foram fundamentais para transformar este projeto em uma experiência enriquecedora e memorável. Estamos profundamente gratos pela oportunidade de aprender e crescer sob sua supervisão.
+
+A todos os envolvidos, nosso muito obrigado.
+
+Atenciosamente, Guilherme
 
 
 
