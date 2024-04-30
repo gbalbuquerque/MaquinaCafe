@@ -1,6 +1,6 @@
 ;Definição de constantes
 DELAY_COUNT equ 50   ; Valor para o atraso
-TIMEOUT_COUNT equ 200  ; Contagem para 10 segundos (200 * 50ms)
+TIMEOUT_COUNT equ 150  ; Contagem para 10 segundos (200 * 50ms)
 
 ; When a key is pressed the key number
 ; is placed in R0.
@@ -43,6 +43,8 @@ org 0000h
 	LJMP START
 
 org 0030h
+
+
 START:
 ; put data in RAM
 	MOV 40H, #'#' 
@@ -67,7 +69,7 @@ MAIN:
 	ACALL escreveString
 	MOV A, #43H
 	ACALL posicionaCursor
-	MOV DPTR,#Display ; DPTR = início da palavra Display
+	MOV DPTR,#BV ; DPTR = início da palavra Display
 	ACALL escreveString    
 	ACALL clearDisplay
 	;opcoes
@@ -139,6 +141,7 @@ ROTINA:
 	MOV DPTR,#OP1
 	ACALL escreveString
 	ACALL clearDisplay
+
 	
 	;Preparando
 	ACALL lcd_init
@@ -170,8 +173,13 @@ ROTINA:
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre
 	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString 
 	ACALL clearDisplay
-
+	JMP $		
+ 
 naoCafe1: 
 	CJNE A,#'2',naoCafe2 
 	ACALL lcd_init 
@@ -210,8 +218,13 @@ naoCafe1:
 	MOV A,#03H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
 	ACALL escreveString 
 	ACALL clearDisplay 
+	JMP $ 
 
 naoCafe2: 
 	CJNE A,#'3',naoCafe3 
@@ -251,8 +264,13 @@ naoCafe2:
 	MOV A,#03H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
-	ACALL escreveString 
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString  
 	ACALL clearDisplay 
+	JMP $ 
 
 naoCafe3: 
 	CJNE A,#'4',naoCafe4 
@@ -292,8 +310,13 @@ naoCafe3:
 	MOV A,#03H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
-	ACALL escreveString 
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString  
 	ACALL clearDisplay 
+	JMP $ 
 
 naoCafe4: 
 	CJNE A,#'5',naoCafe5 
@@ -333,8 +356,13 @@ naoCafe4:
 	MOV A,#03H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
-	ACALL escreveString 
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString  
 	ACALL clearDisplay 
+	JMP $ 
 
 naoCafe5: 
 	CJNE A,#'6',naoCafe6 
@@ -374,8 +402,13 @@ naoCafe5:
 	MOV A,#03H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
-	ACALL escreveString 
-	ACALL clearDisplay 
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString  
+	ACALL clearDisplay
+	JMP $ 
 
 naoCafe6: 
 	CJNE A,#'7',desconhecido
@@ -415,9 +448,29 @@ naoCafe6:
 	MOV A,#03H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
-	ACALL escreveString 
-	ACALL clearDisplay 
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString  
+	ACALL clearDisplay
+	JMP $  
 
+
+desconhecido:
+	ACALL lcd_init
+	MOV A,#03h
+	ACALL posicionaCursor
+	MOV DPTR,#msgDesconhecido
+	ACALL escreveString	
+	ACALL clearDisplay
+
+msgDesconhecido:
+DB "Pd Desconhecido"
+DB 0 ; Caracter null indica fim da String
+
+
+	
 ;Funcao para quando nao tiver certeza retornar para o começo
 leituraTeclado:
 	MOV R0, #0			; clear R0 - the first key is key0
@@ -463,17 +516,7 @@ gotKey:
 	SETB F0				; key found - set F0
 	RET					; and return from subroutine
 
-desconhecido:
-	ACALL lcd_init
-	MOV A,#03h
-	ACALL posicionaCursor
-	MOV DPTR,#msgDesconhecido
-	ACALL escreveString
-	ACALL clearDisplay
 
-msgDesconhecido:
-DB "Pd Desconhecido"
-DB 0 ; Caracter null indica fim da String
 
 
 ; initialise the display
@@ -677,7 +720,7 @@ wait_loop:
 MSG:
 DB "Cup Coffe"
 DB 0 ; caracter null indica fim da String
-Display:
+BV:
 DB "BEM-VINDO"
 DB 0 ; caracter null indica fim da String
 
@@ -770,6 +813,9 @@ volteSempre:
 DB "    Volte Sempre!"
 DB 0 ; Caracter null indica fim da String
 
+sorriso:
+DB "    =)"
+DB 0
 ;Strings com nome dos pedidos
 cafePreto:
 DB "    Cafe Preto"
