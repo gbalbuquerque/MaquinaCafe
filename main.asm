@@ -68,8 +68,7 @@ MAIN:
 	MOV A, #43H
 	ACALL posicionaCursor
 	MOV DPTR,#Display ; DPTR = início da palavra Display
-	ACALL escreveString
-	ACALL esperar_10_segundos     
+	ACALL escreveString    
 	ACALL clearDisplay
 	;opcoes
 	ACALL lcd_init
@@ -79,7 +78,6 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR,#OpcoesCafe1 ; DPTR = início das opções de café
 	ACALL escreveString
-	ACALL esperar_10_segundos
 	ACALL clearDisplay
 		
 	;opcao2
@@ -87,7 +85,6 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe2 ; DPTR = início das opções de café
 	ACALL escreveString
-	ACALL esperar_10_segundos
 	ACALL clearDisplay
 	
 	;opcao3
@@ -95,7 +92,6 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe3 ; DPTR = início das opções de café
 	ACALL escreveString
-	ACALL esperar_10_segundos
 	ACALL clearDisplay
 		
 	;opcao4
@@ -103,7 +99,6 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe4 ; DPTR = início das opções de café
 	ACALL escreveString
-	ACALL esperar_10_segundos
 	ACALL clearDisplay
 
 	;opcao5
@@ -119,7 +114,6 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe6 ; DPTR = início das opções de café
 	ACALL escreveString
-	ACALL esperar_10_segundos
 	ACALL clearDisplay
 	
 	;opcao7
@@ -127,7 +121,6 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe7 ; DPTR = início das opções de café
 	ACALL escreveString
-	ACALL esperar_10_segundos
 	ACALL clearDisplay
 	
 		
@@ -147,11 +140,6 @@ ROTINA:
 	ACALL posicionaCursor
 	MOV DPTR,#OP1
 	ACALL escreveString
-	MOV A,#43H
-	ACALL posicionaCursor
-	MOV DPTR,#CERTEZA
-	ACALL escreveString
-	CJNE A,#'#', naoCerteza
 	ACALL clearDisplay
 	
 	;Preparando
@@ -174,7 +162,7 @@ ROTINA:
 	ACALL escreveString
 	MOV A,#43H
 	ACALL posicionaCursor
-	MOV DPRT,#Pronto
+	MOV DPTR,#Pronto
 	ACALL escreveString
 	ACALL clearDisplay
 
@@ -185,11 +173,254 @@ ROTINA:
 	MOV DPTR,#volteSempre
 	ACALL escreveString
 	ACALL clearDisplay
-	ACALL esperar_10_segundos
 
+naoCafe1: 
+	CJNE A,#'2',naoCafe2 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#OP2
+	ACALL escreveString 
+	ACALL clearDisplay
+ 
+	;Preparando
+	ACALL lcd_init
+ 	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Preparando 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Aguarde 
+	ACALL escreveString 
+	ACALL clearDisplay 
+	
+	;Pedido pronto 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#cafeComLeite 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Pronto 
+	ACALL escreveString 
+	ACALL clearDisplay 
 
+	;Volte sempre
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre 
+	ACALL escreveString 
+	ACALL clearDisplay 
 
+naoCafe2: 
+	CJNE A,#'3',naoCafe3 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#OP3
+	ACALL escreveString 
+	ACALL clearDisplay
+ 
+	;Preparando
+	ACALL lcd_init
+ 	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Preparando 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Aguarde 
+	ACALL escreveString 
+	ACALL clearDisplay 
+	
+	;Pedido pronto 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#cafeExpresso
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Pronto 
+	ACALL escreveString 
+	ACALL clearDisplay 
 
+	;Volte sempre
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+naoCafe3: 
+	CJNE A,#'4',naoCafe4 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#OP4
+	ACALL escreveString 
+	ACALL clearDisplay
+ 
+	;Preparando
+	ACALL lcd_init
+ 	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Preparando 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Aguarde 
+	ACALL escreveString 
+	ACALL clearDisplay 
+	
+	;Pedido pronto 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#cafeGelado
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Pronto 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+	;Volte sempre
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+naoCafe4: 
+	CJNE A,#'5',naoCafe5 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#OP5
+	ACALL escreveString 
+	ACALL clearDisplay
+ 
+	;Preparando
+	ACALL lcd_init
+ 	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Preparando 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Aguarde 
+	ACALL escreveString 
+	ACALL clearDisplay 
+	
+	;Pedido pronto 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#cafeCapuccino
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Pronto 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+	;Volte sempre
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+naoCafe5: 
+	CJNE A,#'6',naoCafe6 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#OP6
+	ACALL escreveString 
+	ACALL clearDisplay
+ 
+	;Preparando
+	ACALL lcd_init
+ 	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Preparando 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Aguarde 
+	ACALL escreveString 
+	ACALL clearDisplay 
+	
+	;Pedido pronto 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#cafeLatte
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Pronto 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+	;Volte sempre
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+naoCafe6: 
+	CJNE A,#'7',desconhecido
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#OP7
+	ACALL escreveString 
+	ACALL clearDisplay
+ 
+	;Preparando
+	ACALL lcd_init
+ 	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Preparando 
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Aguarde 
+	ACALL escreveString 
+	ACALL clearDisplay 
+	
+	;Pedido pronto 
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#cafeLatte
+	ACALL escreveString 
+	MOV A,#43H 
+	ACALL posicionaCursor 
+	MOV DPTR,#Pronto 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+	;Volte sempre
+	ACALL lcd_init 
+	MOV A,#03H 
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre 
+	ACALL escreveString 
+	ACALL clearDisplay 
+
+;Funcao para quando nao tiver certeza retornar para o começo
 leituraTeclado:
 	MOV R0, #0			; clear R0 - the first key is key0
 
@@ -217,6 +448,11 @@ leituraTeclado:
 	CALL colScan		; call column-scan subroutine
 	JB F0, finish		; | if F0 is set, jump to end of program 
 						; | (because the pressed key was found and its number is in  R0)
+
+desconhecido:
+DB "		 Pd Desconhecido"
+DB 0 ; Caracter null indica fim da String
+
 finish:
 	RET
 
@@ -518,10 +754,6 @@ CERTEZA:
 DB "      Confirmar #"
 DB 0 ; Caracter null indica fim da String
 
-;Funcao para quando nao tiver certeza retornar para o começo
-naoCerteza:
-ACALL clearDisplay
-SJMP START
 
 Preparando:
 DB "     Preparando..."
@@ -537,7 +769,7 @@ DB 0 ; Caracter null indica fim da String
 
 volteSempre:
 DB "    Volte Sempre!"
-
+DB 0 ; Caracter null indica fim da String
 
 ;Strings com nome dos pedidos
 cafePreto:
@@ -556,15 +788,15 @@ cafeGelado:
 DB "    Cafe Gelado"
 DB 0 ; Caracter null indica fim da String
 
-cafeCapuccino
+cafeCapuccino:
 DB "    Capuccino"
 DB 0 ; Caracter null indica fim da String
 
-latte:
+cafeLatte:
 DB "    Latte"
 DB 0 ; Caracter null indica fim da String
 
-mocha:
+cafeMocha:
 DB "    Mocha"
 DB 0 ; Caracter null indica fim da String
- 
+
