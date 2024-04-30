@@ -11,6 +11,11 @@ Dentro da cafeteira é possível de se fazer 7 (sete) tipos de pedidos sendo ele
 6. Latte
 7. Mocha
 
+O programa pega o que foi digitado na Keypad e armazena no registrador, fazendo uma comparação com o que está salvo na memória, e depois do valor do registrador ser passado para o A ele compara os valores e verifica se é igual a alguma das opções, caso não seja, ele retorna desconhecido e o programa deverá ser reiniciado
+
+![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/cf68528e-dea7-4542-9701-fd13125ce953)
+
+
 ## Como Ultilizar o Programa
 
 Para utilizarmos o programa precisaremos de um executável em java chamado de EdSim51 que vai rodar o código que está na main.asm, para a instalação do executável, apenas seguir o passos do seguinte vídeo (https://youtu.be/-5E_wcdMYfI?si=IEMMBxcb-IC1k79L)
