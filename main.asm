@@ -447,10 +447,6 @@ leituraTeclado:
 	JB F0, finish		; | if F0 is set, jump to end of program 
 						; | (because the pressed key was found and its number is in  R0)
 
-desconhecido:
-DB "		 Pd Desconhecido"
-DB 0 ; Caracter null indica fim da String
-
 finish:
 	RET
 
@@ -467,7 +463,17 @@ gotKey:
 	SETB F0				; key found - set F0
 	RET					; and return from subroutine
 
+desconhecido:
+	ACALL lcd_init
+	MOV A,#03h
+	ACALL posicionaCursor
+	MOV DPTR,#msgDesconhecido
+	ACALL escreveString
+	ACALL clearDisplay
 
+msgDesconhecido:
+DB "Pd Desconhecido"
+DB 0 ; Caracter null indica fim da String
 
 
 ; initialise the display
@@ -792,4 +798,3 @@ DB 0 ; Caracter null indica fim da String
 cafeMocha:
 DB "    Mocha"
 DB 0 ; Caracter null indica fim da String
-
