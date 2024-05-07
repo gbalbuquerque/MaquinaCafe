@@ -136,7 +136,7 @@ ROTINA:
 	MOV A, @R0        
 	CJNE A,#'1',naoCafe1
 	ACALL lcd_init
-	MOV A,#03H
+	MOV A,#0H
 	ACALL posicionaCursor
 	MOV DPTR,#OP1
 	ACALL escreveString
@@ -169,7 +169,7 @@ ROTINA:
 
 	;Volte sempre	
 	ACALL lcd_init
-	MOV A,#03H
+	MOV A,#0H
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre
 	ACALL escreveString
@@ -177,13 +177,12 @@ ROTINA:
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
 	ACALL escreveString 
-	ACALL clearDisplay
 	JMP $		
  
 naoCafe1: 
 	CJNE A,#'2',naoCafe2 
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP2
 	ACALL escreveString 
@@ -215,7 +214,7 @@ naoCafe1:
 
 	;Volte sempre
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
 	ACALL escreveString
@@ -223,13 +222,12 @@ naoCafe1:
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
 	ACALL escreveString 
-	ACALL clearDisplay 
 	JMP $ 
 
 naoCafe2: 
 	CJNE A,#'3',naoCafe3 
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP3
 	ACALL escreveString 
@@ -249,7 +247,7 @@ naoCafe2:
 	
 	;Pedido pronto 
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#cafeExpresso
 	ACALL escreveString 
@@ -261,21 +259,20 @@ naoCafe2:
 
 	;Volte sempre
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
 	ACALL escreveString
 	MOV A,#40H
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
-	ACALL escreveString  
-	ACALL clearDisplay 
+	ACALL escreveString   
 	JMP $ 
 
 naoCafe3: 
 	CJNE A,#'4',naoCafe4 
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP4
 	ACALL escreveString 
@@ -307,7 +304,7 @@ naoCafe3:
 
 	;Volte sempre
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
 	ACALL escreveString
@@ -315,13 +312,12 @@ naoCafe3:
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
 	ACALL escreveString  
-	ACALL clearDisplay 
 	JMP $ 
 
 naoCafe4: 
 	CJNE A,#'5',naoCafe5 
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP5
 	ACALL escreveString 
@@ -360,14 +356,13 @@ naoCafe4:
 	MOV A,#40H
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
-	ACALL escreveString  
-	ACALL clearDisplay 
+	ACALL escreveString   
 	JMP $ 
 
 naoCafe5: 
 	CJNE A,#'6',naoCafe6 
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP6
 	ACALL escreveString 
@@ -399,7 +394,7 @@ naoCafe5:
 
 	;Volte sempre
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
 	ACALL escreveString
@@ -407,13 +402,12 @@ naoCafe5:
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
 	ACALL escreveString  
-	ACALL clearDisplay
 	JMP $ 
 
 naoCafe6: 
 	CJNE A,#'7',desconhecido
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP7
 	ACALL escreveString 
@@ -445,7 +439,7 @@ naoCafe6:
 
 	;Volte sempre
 	ACALL lcd_init 
-	MOV A,#03H 
+	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#volteSempre 
 	ACALL escreveString
@@ -453,17 +447,26 @@ naoCafe6:
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
 	ACALL escreveString  
-	ACALL clearDisplay
 	JMP $  
 
 
 desconhecido:
 	ACALL lcd_init
-	MOV A,#03h
+	MOV A,#0h
 	ACALL posicionaCursor
 	MOV DPTR,#msgDesconhecido
 	ACALL escreveString	
 	ACALL clearDisplay
+	MOV A,#04H
+	ACALL posicionaCursor 
+	MOV DPTR,#volteSempre
+	ACALL escreveString
+	MOV A,#40H
+ 	ACALL posicionaCursor
+	MOV DPTR,#sorriso
+	ACALL escreveString 
+	ACALL clearDisplay
+	SJMP $
 
 msgDesconhecido:
 DB "Pd Desconhecido"
@@ -810,11 +813,11 @@ DB " Pronto!"
 DB 0 ; Caracter null indica fim da String
 
 volteSempre:
-DB "    Volte Sempre!"
+DB "     Reinicie para"
 DB 0 ; Caracter null indica fim da String
 
 sorriso:
-DB "    =)"
+DB "outro pedido =)"
 DB 0
 ;Strings com nome dos pedidos
 cafePreto:
