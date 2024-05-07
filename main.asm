@@ -1,6 +1,6 @@
 ;Definição de constantes
-DELAY_COUNT equ 50   ; Valor para o atraso
-TIMEOUT_COUNT equ 150  ; Contagem para 10 segundos (200 * 50ms)
+DELAY_COUNT equ 30   ; Valor para o atraso
+TIMEOUT_COUNT equ 30  ; Contagem para 10 segundos (200 * 50ms)
 
 ; When a key is pressed the key number
 ; is placed in R0.
@@ -44,7 +44,6 @@ org 0000h
 
 org 0030h
 
-
 START:
 ; put data in RAM
 	MOV 40H, #'#' 
@@ -65,12 +64,13 @@ MAIN:
 	ACALL lcd_init
 	MOV A, #03H
 	ACALL posicionaCursor
-	MOV DPTR,#MSG     ; DPTR = início da palavra FEI
+	MOV DPTR,#MSG     ; DPTR = início da palavra cup coffee
 	ACALL escreveString
 	MOV A, #43H
 	ACALL posicionaCursor
-	MOV DPTR,#BV ; DPTR = início da palavra Display
-	ACALL escreveString    
+	MOV DPTR,#BV ; DPTR = início da palavra bem-vindo
+	ACALL escreveString
+	ACALL esperar_10_segundos    
 	ACALL clearDisplay
 	;opcoes
 	ACALL lcd_init
@@ -80,6 +80,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR,#OpcoesCafe1 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 		
 	;opcao2
@@ -87,6 +88,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe2 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 	
 	;opcao3
@@ -94,6 +96,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe3 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 		
 	;opcao4
@@ -101,6 +104,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe4 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 
 	;opcao5
@@ -108,6 +112,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe5 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 	
 	;opcao6
@@ -115,6 +120,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe6 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 	
 	;opcao7
@@ -122,6 +128,7 @@ MAIN:
 	ACALL posicionaCursor
 	MOV DPTR, #OpcoesCafe7 ; DPTR = início das opções de café
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 		
 ROTINA:
@@ -140,6 +147,7 @@ ROTINA:
 	ACALL posicionaCursor
 	MOV DPTR,#OP1
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 
 	
@@ -153,6 +161,7 @@ ROTINA:
 	ACALL posicionaCursor
 	MOV DPTR,#Aguarde
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 
 	;Pedido pronto
@@ -165,6 +174,7 @@ ROTINA:
 	ACALL posicionaCursor
 	MOV DPTR,#Pronto
 	ACALL escreveString
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
 
 	;Volte sempre	
@@ -185,7 +195,8 @@ naoCafe1:
 	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP2
-	ACALL escreveString 
+	ACALL escreveString
+	ACALL esperar_10_segundos 
 	ACALL clearDisplay
  
 	;Preparando
@@ -198,6 +209,7 @@ naoCafe1:
 	ACALL posicionaCursor 
 	MOV DPTR,#Aguarde 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 	
 	;Pedido pronto 
@@ -209,7 +221,8 @@ naoCafe1:
 	MOV A,#43H 
 	ACALL posicionaCursor 
 	MOV DPTR,#Pronto 
-	ACALL escreveString 
+	ACALL escreveString
+	ACALL esperar_10_segundos 
 	ACALL clearDisplay 
 
 	;Volte sempre
@@ -230,7 +243,8 @@ naoCafe2:
 	MOV A,#0H 
 	ACALL posicionaCursor 
 	MOV DPTR,#OP3
-	ACALL escreveString 
+	ACALL escreveString
+	ACALL esperar_10_segundos 
 	ACALL clearDisplay
  
 	;Preparando
@@ -243,6 +257,7 @@ naoCafe2:
 	ACALL posicionaCursor 
 	MOV DPTR,#Aguarde 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 	
 	;Pedido pronto 
@@ -255,6 +270,7 @@ naoCafe2:
 	ACALL posicionaCursor 
 	MOV DPTR,#Pronto 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 
 	;Volte sempre
@@ -276,6 +292,7 @@ naoCafe3:
 	ACALL posicionaCursor 
 	MOV DPTR,#OP4
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
  
 	;Preparando
@@ -288,6 +305,7 @@ naoCafe3:
 	ACALL posicionaCursor 
 	MOV DPTR,#Aguarde 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 	
 	;Pedido pronto 
@@ -299,7 +317,8 @@ naoCafe3:
 	MOV A,#43H 
 	ACALL posicionaCursor 
 	MOV DPTR,#Pronto 
-	ACALL escreveString 
+	ACALL escreveString
+	ACALL esperar_10_segundos 
 	ACALL clearDisplay 
 
 	;Volte sempre
@@ -321,6 +340,7 @@ naoCafe4:
 	ACALL posicionaCursor 
 	MOV DPTR,#OP5
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
  
 	;Preparando
@@ -332,7 +352,8 @@ naoCafe4:
 	MOV A,#43H 
 	ACALL posicionaCursor 
 	MOV DPTR,#Aguarde 
-	ACALL escreveString 
+	ACALL escreveString
+	ACALL esperar_10_segundos 
 	ACALL clearDisplay 
 	
 	;Pedido pronto 
@@ -345,6 +366,7 @@ naoCafe4:
 	ACALL posicionaCursor 
 	MOV DPTR,#Pronto 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 
 	;Volte sempre
@@ -366,6 +388,7 @@ naoCafe5:
 	ACALL posicionaCursor 
 	MOV DPTR,#OP6
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
  
 	;Preparando
@@ -378,6 +401,7 @@ naoCafe5:
 	ACALL posicionaCursor 
 	MOV DPTR,#Aguarde 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 	
 	;Pedido pronto 
@@ -390,6 +414,7 @@ naoCafe5:
 	ACALL posicionaCursor 
 	MOV DPTR,#Pronto 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 
 	;Volte sempre
@@ -411,6 +436,7 @@ naoCafe6:
 	ACALL posicionaCursor 
 	MOV DPTR,#OP7
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay
  
 	;Preparando
@@ -423,6 +449,7 @@ naoCafe6:
 	ACALL posicionaCursor 
 	MOV DPTR,#Aguarde 
 	ACALL escreveString 
+	ACALL esperar_10_segundos
 	ACALL clearDisplay 
 	
 	;Pedido pronto 
@@ -434,7 +461,8 @@ naoCafe6:
 	MOV A,#43H 
 	ACALL posicionaCursor 
 	MOV DPTR,#Pronto 
-	ACALL escreveString 
+	ACALL escreveString
+	ACALL esperar_10_segundos 
 	ACALL clearDisplay 
 
 	;Volte sempre
@@ -455,7 +483,8 @@ desconhecido:
 	MOV A,#0h
 	ACALL posicionaCursor
 	MOV DPTR,#msgDesconhecido
-	ACALL escreveString	
+	ACALL escreveString
+	ACALL esperar_10_segundos	
 	ACALL clearDisplay
 	MOV A,#04H
 	ACALL posicionaCursor 
@@ -465,7 +494,6 @@ desconhecido:
  	ACALL posicionaCursor
 	MOV DPTR,#sorriso
 	ACALL escreveString 
-	ACALL clearDisplay
 	SJMP $
 
 msgDesconhecido:
@@ -721,10 +749,10 @@ wait_loop:
     RET
 
 MSG:
-DB "Cup Coffe"
+DB "Cup Coffee"
 DB 0 ; caracter null indica fim da String
 BV:
-DB "BEM-VINDO"
+DB "Bem-Vindo!"
 DB 0 ; caracter null indica fim da String
 
 	
@@ -805,11 +833,11 @@ DB "     Preparando..."
 DB 0 ; Caracter null indica fim da String
 
 Aguarde:
-DB " Aguarde!"
+DB "Aguarde!"
 DB 0 ; Caracter null indica fim da String
 
 Pronto:
-DB " Pronto!"
+DB "Pronto!"
 DB 0 ; Caracter null indica fim da String
 
 volteSempre:
