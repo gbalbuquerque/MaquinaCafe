@@ -456,7 +456,7 @@ naoCafe6:
 	ACALL lcd_init 
 	MOV A,#03H 
 	ACALL posicionaCursor 
-	MOV DPTR,#cafeLatte
+	MOV DPTR,#cafeMocha
 	ACALL escreveString 
 	MOV A,#43H 
 	ACALL posicionaCursor 
