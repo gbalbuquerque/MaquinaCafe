@@ -49,11 +49,6 @@ Feito isso, basta apenas mudar a frequência de atualização para 1000 no canto
 <br>
 ![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/a85a0bcd-cc30-4310-88c7-e912b71b2644)
 
-<a style="font-weight: bold">Volte Sempre<a>
-<br>
-![image](https://github.com/gbalbuquerque/MaquinaCafe/assets/115583227/9dbd0881-c3b6-4987-9d15-ae37e9f3e6ee)
-
-
 ## Código do programa comentadado
 
 ### Start:
